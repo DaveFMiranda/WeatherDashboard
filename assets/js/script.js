@@ -46,6 +46,19 @@ function weatherSearch() {
                     console.log(data.list[0].main.temp);
                     console.log(data.list[0].wind.speed);
                     console.log(data.list[0].main.humidity);
+                    // put received data in the appropriate box:
+                    /*
+                    <div class="col-md-12">
+                <city></city>
+                <date></date>
+                <icon></icon>
+                <Temp></Temp>
+                <Wind></Wind>
+                <Humidity></Humidity>
+                    */
+
+
+                //set up five-day forecast: same as above with the box creation, just need to modify the data put in each box
                 })
                 .catch(error => console.error(error))
             })
