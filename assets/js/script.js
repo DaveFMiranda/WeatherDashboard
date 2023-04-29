@@ -25,8 +25,23 @@ function weatherSearch() {
                     var day = dateObject.getDate();
                     var displayDate = '(' + month + '/' + day + '/' + year +')';
                     console.log(displayDate);
-                    
+
                     // icon: (sunny, cloudy, partially cloudy, rainy, snowy, what else???)
+                    console.log(data.list[0].weather.icon);
+                    // fetch('https://openweathermap.org/img/wn/' + data.list[0].weather.icon + '@2x.png')
+                    //  .then(response => response.blob())
+                    //    .then(blob => {
+                            // USE THIS SPACE TO CREATE AN OBJECT THAT GOES NEXT TO THE DATE IN THE HTML
+                            // var iconURL = URL.createObjectURL(blob);
+                            // var displayIcon = document.createElement('displayIcon');
+                            //img.src = iconURL;
+                            // document.body.appendChild(img);
+                            // EXCEPT we need to put it in a different place
+                            // Use the URL to display the image on your site
+                           
+                    // })
+                    // 
+                    // pull the icon graphic from 
                     console.log(data.list[0].main.temp);
                     console.log(data.list[0].wind.speed);
                     console.log(data.list[0].main.humidity);
