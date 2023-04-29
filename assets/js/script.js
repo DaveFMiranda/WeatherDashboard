@@ -40,21 +40,34 @@ function weatherSearch() {
                                 console.log(iconURL)
                                 var displayIcon = document.createElement('img');
                                 displayIcon.src = iconURL;
-                                document.body.appendChild(displayIcon);
+                                date.insertAdjacentElement('afterend', displayIcon);
+
                             })
                             .catch(error => console.error(error))
                     console.log(data.list[0].main.temp);
                     console.log(data.list[0].wind.speed);
                     console.log(data.list[0].main.humidity);
+            city = document.querySelector('.city');
+            city.textContent = data.city.name;
+            
+            date = document.querySelector('.date');
+            date.textContent = displayDate;
+
+            
+            icon.insertAdjacentElement('afterend', displayIcon);
+           
                     // put received data in the appropriate box:
                     /*
-                    <div class="col-md-12">
-                <city></city>
-                <date></date>
-                <icon></icon>
-                <Temp></Temp>
-                <Wind></Wind>
-                <Humidity></Humidity>
+                  
+                <icon> Icon</icon>
+                <br>
+                <Temp>temp</Temp>
+                <br>
+                <Wind>wind</Wind>
+                <br>
+                <Humidity>humidity</Humidity>
+              </div>
+            </div>
                     */
 
 
