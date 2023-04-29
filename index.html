@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+    <!-- INSERT CSS FRAMEWORK HERE <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"> -->
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+    <sidebar class="sidebar">
+        <h2>Search for a City:</h2>
+        <input type="text" id="searchCity" name="searchCity" placeholder="San Diego" required>
+        
+        <button type="button" onclick="weatherSearch()" class="button-hover-like button">
+
+<!-- ADD a line, then below that go the boxes for previous searches-->
+    </sidebar>
+    
+    <main>
+        <todayBox>
+            <city></city>
+            <date></date>
+            <icon></icon>
+            <Temp></Temp>
+            <Wind></Wind>
+            <Humidity></Humidity>
+        </todayBox>
+        <fiveDay>
+            <!-- Copy todayBox five times-->
+        </fiveDay>
+    </main>
+
+    <!-- INSERT WEATHER API HERE: <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7CrkqI9weRGAmOEwTvAhi7VMIQ-f-w6Y&callback=initMap"></script> -->
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
