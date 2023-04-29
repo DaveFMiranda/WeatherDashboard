@@ -53,8 +53,14 @@ function weatherSearch() {
             date = document.querySelector('.date');
             date.textContent = displayDate;
 
-            
-            icon.insertAdjacentElement('afterend', displayIcon);
+            temp = document.querySelector('.temp');
+            temp.textContent = 'Temp: ' + data.list[0].main.temp + '\u00B0F';
+
+            wind = document.querySelector('.wind');
+            wind.textContent = 'Wind: ' + data.list[0].wind.speed + ' MPH';
+
+            humidity = document.querySelector('.humidity');
+            humidity.textContent = 'Humidity: ' + data.list[0].main.humidity + '%';
            
                     // put received data in the appropriate box:
                     /*
