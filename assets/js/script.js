@@ -1,15 +1,17 @@
-// The function that triggers the search is weatherSearch()
+// Calls the function when the search button is clicked
 function weatherSearch() {
+    // Establishes variables for the initial API request, including user input search city
     var searchCity = document.getElementById("searchCity");
     var APIKey = '67c9eb2313ffa6deee9294ece7e56ce5';
     var latLonQueryURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + searchCity.value + '&limit=1&appid=' + APIKey;
+    // Translates user input city into latitude and longitude for the weather query
     fetch (latLonQueryURL)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             var lat = data[0].lat;
             var lon = data[0].lon;
-            var weatherQueryURL = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey + '&units=imperial'
+            var weatherQueryURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey + '&units=imperial'
+            // Queries the weather forecast API
             fetch (weatherQueryURL)
                 .then(response => response.json())
                 .then(data => {
@@ -26,28 +28,31 @@ function weatherSearch() {
                     var displayDate = '(' + month + '/' + day + '/' + year +')';
                     console.log(displayDate);
 
-                    // icon: (sunny, cloudy, partially cloudy, rainy, snowy, what else???)
-                    console.log(data.list[0].weather.icon);
-                    // fetch('https://openweathermap.org/img/wn/' + data.list[0].weather.icon + '@2x.png')
-                    //  .then(response => response.blob())
-                    //    .then(blob => {
-                            // USE THIS SPACE TO CREATE AN OBJECT THAT GOES NEXT TO THE DATE IN THE HTML
-                            // var iconURL = URL.createObjectURL(blob);
-                            // var displayIcon = document.createElement('displayIcon');
-                            //img.src = iconURL;
-                            // document.body.appendChild(img);
-                            // EXCEPT we need to put it in a different place
-                            // Use the URL to display the image on your site
-                           
-                    // })
-                    // 
-                    // pull the icon graphic from 
+                    // Translates the icon data into a corresponding icon and displays it on the page
+                    console.log(data.list[0].weather[0].icon);
+                    iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[0].weather[0].icon + '@2x.png';
+                    console.log(iconFetchURL);
+                    fetch(iconFetchURL)
+                            .then(response => response.blob()) 
+                            .then(blob => {
+                            // MOVE THIS ICON WHERE IT SHOULD BE (next to the date)
+                                var iconURL = URL.createObjectURL(blob);
+                                console.log(iconURL)
+                                var displayIcon = document.createElement('img');
+                                displayIcon.src = iconURL;
+                                document.body.appendChild(displayIcon);
+                            })
+                            .catch(error => console.error(error))
                     console.log(data.list[0].main.temp);
                     console.log(data.list[0].wind.speed);
                     console.log(data.list[0].main.humidity);
                 })
                 .catch(error => console.error(error))
+            })
+            .catch(error => console.error(error))
+    }
 
+    
 /*
 
 {
@@ -239,15 +244,10 @@ function weatherSearch() {
 
 
 
-        })
-        .catch(error => console.error(error))
-  }
-
-
+     
 
 
 
 // fetch api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={APIKey}&units=imperial
 // make lat and lon variables that pull data from the first API response
 
-weatherSearch();
