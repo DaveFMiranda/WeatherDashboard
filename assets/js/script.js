@@ -273,7 +273,7 @@ function weatherSearch() {
             // Adds new search to local storage if local storage is empty...
             if (localStorage.length === 0) {
                 localStorage.setItem(1, data.city.name);
-                var foundMatch = false;
+                var foundMatch = true;
                 // ... and creates a new button to search for that stored city search again
                 newButton();
             // If local storage isn't empty, checks to see if the user-entered search matches any items currently in local storage...
