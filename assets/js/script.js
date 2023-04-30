@@ -19,6 +19,8 @@ function loadButtons(){
         //Adds each button to the end of the button list
         var searchButton = document.querySelector(".btn-primary");
         searchButton.parentNode.appendChild(savedSearch);
+        var lineBreak = document.createElement('br');
+        searchButton.parentNode.insertBefore(lineBreak, savedSearch);
     }
 }
 
@@ -272,6 +274,7 @@ function weatherSearch() {
             var nextIndex = localStorage.length + 1;
             localStorage.setItem(nextIndex, data.city.name);
             
+            // Creates a new button with a saved user-created search when the user clicks the search button
             function newButton(){
                 var savedSearch = document.createElement('button');
                     savedSearch.type = 'button';
@@ -282,50 +285,13 @@ function weatherSearch() {
                     savedSearch.addEventListener("click", weatherSearch)
                     var searchButton = document.querySelector(".btn-primary");
                     searchButton.parentNode.appendChild(savedSearch);
+                    var lineBreak = document.createElement('br');
+                    searchButton.parentNode.insertBefore(lineBreak, savedSearch);
             }
-
             newButton();
-
-
-            // THIS IS THE SECTION WHERE IT ADDS A NEW BUTTON, NOT LOADS SAVED BUTTONS.
-            // SOMETHING'S BROKEN IN HERE
-            // Adds a saved search button with a text label and ID of the search city
-           /* function addButton() {
-                // Add something in here so that a new button doesn't get added if
-                //searchCity.value is already in local storage
-                var newButton = document.createElement('button');
-                newButton.type = 'button';
-                newButton.innerHTML = localStorage.getItem(nextIndex);
-                newButton.className = "btn btn-secondary";
-                newButton.addEventListener("click", weatherSearch)
-                newButton.setAttribute('id', searchCity.value)
-                var searchButton = document.querySelector(".btn-primary");
-                searchButton.parentNode.appendChild(newButton);
-            
-                
-                 // THIS IS THE SECTION WHERE IT ADDS A NEW BUTTON, NOT LOADS SAVED BUTTONS.
-            // SOMETHING'S BROKEN IN HERE
-
-                for (i=0; i<localStorage.length; i++){
-                    var savedSearch = document.createElement('button');
-                    savedSearch.type = 'button';
-                    savedSearch.innerHTML = localStorage.getItem(i+1);
-                    savedSearch.class = "btn btn-secondary";
-                    savedSearch.addEventListener("click",  POINTS TO FUNCTION)
-                    var searchButton = document.querySelector(".btn-primary");
-                    searchButton.parentNode.appendChild(savedSearch);
-                }
-
-                
-                }
-                addButton (); */
                 })
-                
                 .catch(error => console.error(error))
             })
             .catch(error => console.error(error))
-           
-// do i need to stringify and parse to store this properly?
-        //store city to local storage key, city ID to local storage value
     }
   

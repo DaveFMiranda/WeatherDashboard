@@ -15,15 +15,14 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-          <div class="col-4">
+          <div class="col-2">
             <h2>Search for a City:</h2>
             <input type="text" id="searchCity" name="searchCity" placeholder="Kaaaaaaansas City!" required>
             <button type="button" class="btn btn-primary" onclick=weatherSearch()>Search</button>
             <hr>
           </div>
-          <div class="col-8 bg-light">
-            <div class="row" id="today">
-              <div class="col-md-12">
+          <div class="col-10 bg-light">
+            <div class="col" id="today">
                 <h2 class="city"></h2>
                 <h2 class="date"></h2>
                 <br>
@@ -32,54 +31,48 @@
                 <Wind class='wind'></Wind>
                 <br>
                 <Humidity class='humidity'></Humidity>
-              </div>
             </div>
             <div class="row bg-secondary text-white" id="five-day">
               <h2>5-day Forecast:</h2>
-              <div class="col-md-2" id="two">
+              <div class="col border p-3" id="two">
                 <date id="date2"></date>
                 <br>
-                <!--ADD ICON DYNAMICALLY IN JS-->
                 <Temp id="temp2"></Temp>
                 <br>
                 <Wind id="wind2"></Wind>
                 <br>
                 <Humidity id="humidity2"></Humidity>
               </div>
-              <div class="col-md-2" id="three">
+              <div class="col border p-3" id="three">
                 <date id="date3"></date>
                 <br>
-                <!--ADD ICON DYNAMICALLY IN JS-->
                 <Temp id="temp3"></Temp>
                 <br>
                 <Wind id="wind3"></Wind>
                 <br>
                 <Humidity id="humidity3"></Humidity>
               </div>
-              <div class="col-md-2" id="four">
+              <div class="col border p-3" id="four">
                 <date id="date4"></date>
                 <br>
-                <!--ADD ICON DYNAMICALLY IN JS-->
                 <Temp id="temp4"></Temp>
                 <br>
                 <Wind id="wind4"></Wind>
                 <br>
                 <Humidity id="humidity4"></Humidity>
               </div>
-              <div class="col-md-2" id="five">
+              <div class="col border p-3" id="five">
                 <date id="date5"></date>
                 <br>
-                <!--ADD ICON DYNAMICALLY IN JS-->
                 <Temp id="temp5"></Temp>
                 <br>
                 <Wind id="wind5"></Wind>
                 <br>
                 <Humidity id="humidity5"></Humidity>
               </div>
-              <div class="col-md-2" id="six">
+              <div class="col border p-3" id="six">
                 <date id="date6"></date>
                 <br>
-                <!--ADD ICON DYNAMICALLY IN JS-->
                 <Temp id="temp6"></Temp>
                 <br>
                 <Wind id="wind6"></Wind>
@@ -90,10 +83,6 @@
           </div>
         </div>
       </div>
-
-
-
-
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
