@@ -13,81 +13,78 @@
     <div class="bg-primary text-white p-5 text-center">
         <h1>Weather Dashboard</h1>
     </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
           <div class="col-4">
             <h2>Search for a City:</h2>
             <input type="text" id="searchCity" name="searchCity" placeholder="Kaaaaaaansas City!" required>
             <button type="button" class="btn btn-primary" onclick=weatherSearch()>Search</button>
-            <!--Add a line here and then boxes for previous searches below-->
-            <!-- basic clear search button add an outline <button type="button" class="btn">Basic</button>
-            Or does this belong in the JS as a dynamically created thing that happens at the end of the weathersearch function?
-            -->
+            <hr>
           </div>
-          <div class="col-8">
+          <div class="col-8 bg-light">
             <div class="row" id="today">
               <div class="col-md-12">
-                <h2 class="city">Your city</h2>
-                <h2 class="date">Today's Date</h2>
+                <h2 class="city"></h2>
+                <h2 class="date"></h2>
                 <br>
-                <Temp class="temp">temp</Temp>
+                <Temp class="temp"></Temp>
                 <br>
-                <Wind class='wind'>wind</Wind>
+                <Wind class='wind'></Wind>
                 <br>
-                <Humidity class='humidity'>humidity</Humidity>
+                <Humidity class='humidity'></Humidity>
               </div>
             </div>
-            <div class="row" id="five-day">
+            <div class="row bg-secondary text-white" id="five-day">
               <h2>5-day Forecast:</h2>
               <div class="col-md-2" id="two">
-                <date id="date2">Today's Date</date>
+                <date id="date2"></date>
                 <br>
                 <!--ADD ICON DYNAMICALLY IN JS-->
-                <Temp id="temp2">temp</Temp>
+                <Temp id="temp2"></Temp>
                 <br>
-                <Wind id="wind2">wind</Wind>
+                <Wind id="wind2"></Wind>
                 <br>
-                <Humidity id="humidity2">humidity</Humidity>
+                <Humidity id="humidity2"></Humidity>
               </div>
               <div class="col-md-2" id="three">
-                <date id="date3">Today's Date</date>
+                <date id="date3"></date>
                 <br>
                 <!--ADD ICON DYNAMICALLY IN JS-->
-                <Temp id="temp3">temp</Temp>
+                <Temp id="temp3"></Temp>
                 <br>
-                <Wind id="wind3">wind</Wind>
+                <Wind id="wind3"></Wind>
                 <br>
-                <Humidity id="humidity3">humidity</Humidity>
+                <Humidity id="humidity3"></Humidity>
               </div>
               <div class="col-md-2" id="four">
-                <date id="date4">Today's Date</date>
+                <date id="date4"></date>
                 <br>
                 <!--ADD ICON DYNAMICALLY IN JS-->
-                <Temp id="temp4">temp</Temp>
+                <Temp id="temp4"></Temp>
                 <br>
-                <Wind id="wind4">wind</Wind>
+                <Wind id="wind4"></Wind>
                 <br>
-                <Humidity id="humidity4">humidity</Humidity>
+                <Humidity id="humidity4"></Humidity>
               </div>
               <div class="col-md-2" id="five">
-                <date id="date5">Today's Date</date>
+                <date id="date5"></date>
                 <br>
                 <!--ADD ICON DYNAMICALLY IN JS-->
-                <Temp id="temp5">temp</Temp>
+                <Temp id="temp5"></Temp>
                 <br>
-                <Wind id="wind5">wind</Wind>
+                <Wind id="wind5"></Wind>
                 <br>
-                <Humidity id="humidity5">humidity</Humidity>
+                <Humidity id="humidity5"></Humidity>
               </div>
               <div class="col-md-2" id="six">
-                <date id="date6">Today's Date</date>
+                <date id="date6"></date>
                 <br>
                 <!--ADD ICON DYNAMICALLY IN JS-->
-                <Temp id="temp6">temp</Temp>
+                <Temp id="temp6"></Temp>
                 <br>
-                <Wind id="wind6">wind</Wind>
+                <Wind id="wind6"></Wind>
                 <br>
-                <Humidity id="humidity6">humidity</Humidity>
+                <Humidity id="humidity6"></Humidity>
               </div>
             </div>
           </div>
