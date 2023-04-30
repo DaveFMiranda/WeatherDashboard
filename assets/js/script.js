@@ -1,3 +1,29 @@
+// on page load, if localStorage.length >0...
+// iterate through a for loop that creates buttons
+// button gets the city name in its text from local storage
+// button calls the latLonQueryURL function (wrap that part in a function)
+// onClick(that function)
+// but sets searchCity.value to the local storage value
+
+// how do I get it to load on page load and also add a button after clicking search?
+
+function loadButtons(){
+    for (i=0; i<localStorage.length; i++){
+        var savedSearch = document.createElement('button');
+        savedSearch.type = 'button';
+        savedSearch.innerHTML = localStorage.getItem(i+1);
+        savedSearch.className = "btn btn-secondary";
+        savedSearch.addEventListener("click", weatherSearch())
+        var searchButton = document.querySelector(".btn-primary");
+        searchButton.parentNode.appendChild(savedSearch);
+    }
+    }
+
+if (localStorage.length > 0) {
+    loadButtons();
+}
+
+
 // Calls the function when the search button is clicked
 function weatherSearch() {
     // Establishes variables for the initial API request, including user input search city
@@ -164,8 +190,39 @@ function weatherSearch() {
 
             humidity6 = document.querySelector('#humidity6');
             humidity6.textContent = 'Humidity: ' + data.list[39].main.humidity + '%';
+
+            var nextIndex = localStorage.length + 1;
+            localStorage.setItem(nextIndex, data.city.name);
+
+            function addButton(){
+                var newButton = document.createElement('button');
+                newButton.type = 'button';
+                newButton.innerHTML = localStorage.getItem(nextIndex);
+                newButton.className = "btn btn-secondary";
+                newButton.addEventListener("click", weatherSearch())
+                var searchButton = document.querySelector(".btn-primary");
+                searchButton.parentNode.appendChild(savedSearch);
+                
+               
+/*
+                for (i=0; i<localStorage.length; i++){
+                    var savedSearch = document.createElement('button');
+                    savedSearch.type = 'button';
+                    savedSearch.innerHTML = localStorage.getItem(i+1);
+                    savedSearch.class = "btn btn-secondary";
+                    savedSearch.addEventListener("click",  POINTS TO FUNCTION)
+                    var searchButton = document.querySelector(".btn-primary");
+                    searchButton.parentNode.appendChild(savedSearch);
+                }
+*/
+                
+                }
                 })
+                
                 .catch(error => console.error(error))
             })
             .catch(error => console.error(error))
+           
+// do i need to stringify and parse to store this properly?
+        //store city to local storage key, city ID to local storage value
     }
