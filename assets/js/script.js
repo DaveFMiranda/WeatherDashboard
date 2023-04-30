@@ -1,51 +1,51 @@
-// on page load, if localStorage.length >0...
-// iterate through a for loop that creates buttons
-// button gets the city name in its text from local storage
-// button calls the latLonQueryURL function (wrap that part in a function)
-// onClick(that function)
-// but sets searchCity.value to the local storage value
+//Sets the search term to the ID of whichever button is clicked
+function setSearchCity(savedSearch) {
+    return function (){
+        searchCity.value = savedSearch.getAttribute('id');
+    }
+}
 
-// how do I get it to load on page load and also add a button after clicking search?
-
+//Loads buttons from local storage on page load, sets button text and ID to the saved local storage value
 function loadButtons(){
     for (i=0; i<localStorage.length; i++){
         var savedSearch = document.createElement('button');
         savedSearch.type = 'button';
         savedSearch.innerHTML = localStorage.getItem(i+1);
         savedSearch.className = "btn btn-secondary";
-        savedSearch.addEventListener("click", weatherSearch())
+        savedSearch.setAttribute('id', localStorage.getItem(i+1))
+        //Adds event listeners to loaded buttons to set the search term to button's ID and launch the weather search function on click
+        savedSearch.addEventListener("click", setSearchCity(savedSearch));
+        savedSearch.addEventListener("click", weatherSearch)
+        //Adds each button to the end of the button list
         var searchButton = document.querySelector(".btn-primary");
         searchButton.parentNode.appendChild(savedSearch);
     }
-    }
-
-if (localStorage.length > 0) {
-    loadButtons();
 }
 
+//Loads saved buttons if there are any to load
+if (localStorage.length > 0) {
+        loadButtons();
+    }
 
-// Calls the function when the search button is clicked
-function weatherSearch() {
-    // Establishes variables for the initial API request, including user input search city
-    var searchCity = document.getElementById("searchCity");
+//Creates the weatherSearch function, which...
+function weatherSearch() {  
+    //Builds the initial API request URL and inserts the API key and the user-created search term
     var APIKey = '67c9eb2313ffa6deee9294ece7e56ce5';
     var latLonQueryURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + searchCity.value + '&limit=1&appid=' + APIKey;
-    // Translates user input city into latitude and longitude for the weather query
+    
+    // Translates user input city into latitude and longitude for the weather query URL
     fetch (latLonQueryURL)
         .then(response => response.json())
         .then(data => {
             var lat = data[0].lat;
             var lon = data[0].lon;
+            //Creates the weather query URL and inputs the lat and lon we just got for the user-entered city
             var weatherQueryURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=' + APIKey + '&units=imperial'
             // Queries the weather forecast API
             fetch (weatherQueryURL)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    console.log(data.city.name); // (do we need to add an array number somewhere? and convert the name value from a string for some reason?)
-                    console.log(data.list[0].dt); // convert YYYY-MM-DD 
-
-                    // Converts UNIX datestamp to (DD/MM/YYYY)
+                    // Converts UNIX datestamp to (MM/DD/YYYY) for current forecast
                     var dateStamp = data.list[0].dt;
                     var dateObject = new Date(dateStamp * 1000);
                     var year = dateObject.getFullYear();
@@ -53,6 +53,7 @@ function weatherSearch() {
                     var day = dateObject.getDate();
                     var displayDate1 = '(' + month + '/' + day + '/' + year +')';
 
+                    // Converts UNIX datestamp to MM/DD/YYYY for five-day forecast
                     var dateStamp2 = data.list[7].dt;
                     var dateObject2 = new Date(dateStamp2 * 1000);
                     var year2 = dateObject2.getFullYear();
@@ -88,34 +89,30 @@ function weatherSearch() {
                     var day6 = dateObject6.getDate();
                     var displayDate6 = month6 + '/' + day6 + '/' + year6
 
-                    // Translates the icon data into a corresponding icon and displays it on the page
-                    console.log(data.list[0].weather[0].icon);
-                    iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[0].weather[0].icon + '@2x.png';
-                    console.log(iconFetchURL);
-                    fetch(iconFetchURL)
-                            .then(response => response.blob()) 
-                            .then(blob => {
-                            // MOVE THIS ICON WHERE IT SHOULD BE (next to the date)
-                                var iconURL = URL.createObjectURL(blob);
-                                console.log(iconURL)
-                                var displayIcon = document.createElement('img');
-                                displayIcon.src = iconURL;
-                                date.insertAdjacentElement('afterend', displayIcon);
-
-                            })
-                            .catch(error => console.error(error))
-                    console.log(data.list[0].main.temp);
-                    console.log(data.list[8].main.temp);
-
-                    console.log(data.list[0].wind.speed);
-                    console.log(data.list[0].main.humidity);
-            
+                    
             // TODAY'S FORECAST
             city = document.querySelector('.city');
             city.textContent = data.city.name;
             
             date = document.querySelector('.date');
             date.textContent = displayDate1;
+            
+            // Translates the icon data into a corresponding icon and displays it on the page
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[0].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon';
+                        displayIcon.src = iconURL;
+                        date.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
 
             temp = document.querySelector('.temp');
             temp.textContent = 'Temp: ' + data.list[0].main.temp + '\u00B0F';
@@ -129,6 +126,22 @@ function weatherSearch() {
             // TOMORROW'S FORECAST
             date2 = document.querySelector('#date2');
             date2.textContent = displayDate2;
+            
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[7].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon2');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon2';
+                        displayIcon.src = iconURL;
+                        date2.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
 
             temp2 = document.querySelector('#temp2');
             temp2.textContent = 'Temp: ' + data.list[7].main.temp + '\u00B0F';
@@ -143,6 +156,22 @@ function weatherSearch() {
             date3 = document.querySelector('#date3');
             date3.textContent = displayDate3;
 
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[15].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon3');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon3';
+                        displayIcon.src = iconURL;
+                        date3.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
+
             temp3 = document.querySelector('#temp3');
             temp3.textContent = 'Temp: ' + data.list[15].main.temp + '\u00B0F';
 
@@ -155,6 +184,22 @@ function weatherSearch() {
             // DAY 4 FORECAST
             date4 = document.querySelector('#date4');
             date4.textContent = displayDate4;
+
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[23].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon4');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon4';
+                        displayIcon.src = iconURL;
+                        date4.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
 
             temp4 = document.querySelector('#temp4');
             temp4.textContent = 'Temp: ' + data.list[23].main.temp + '\u00B0F';
@@ -169,6 +214,22 @@ function weatherSearch() {
             date5 = document.querySelector('#date5');
             date5.textContent = displayDate5;
 
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[31].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon5');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon5';
+                        displayIcon.src = iconURL;
+                        date5.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
+
             temp5 = document.querySelector('#temp5');
             temp5.textContent = 'Temp: ' + data.list[31].main.temp + '\u00B0F';
 
@@ -182,6 +243,22 @@ function weatherSearch() {
             date6 = document.querySelector('#date6');
             date6.textContent = displayDate6;
 
+            iconFetchURL = 'https://openweathermap.org/img/wn/' + data.list[39].weather[0].icon + '@2x.png';
+            fetch(iconFetchURL)
+                    .then(response => response.blob()) 
+                    .then(blob => {
+                        var iconURL = URL.createObjectURL(blob);
+                        var existingIcon = document.querySelector('#icon6');
+                        if (existingIcon){
+                            existingIcon.remove();
+                        }
+                        var displayIcon = document.createElement('img');
+                        displayIcon.id = 'icon6';
+                        displayIcon.src = iconURL;
+                        date6.insertAdjacentElement('afterend', displayIcon);
+                    })
+                    .catch(error => console.error(error))
+
             temp6 = document.querySelector('#temp6');
             temp6.textContent = 'Temp: ' + data.list[39].main.temp + '\u00B0F';
 
@@ -190,21 +267,45 @@ function weatherSearch() {
 
             humidity6 = document.querySelector('#humidity6');
             humidity6.textContent = 'Humidity: ' + data.list[39].main.humidity + '%';
-
+            
+            // Saves the name of the city search in the next available local storage slot
             var nextIndex = localStorage.length + 1;
             localStorage.setItem(nextIndex, data.city.name);
+            
+            function newButton(){
+                var savedSearch = document.createElement('button');
+                    savedSearch.type = 'button';
+                    savedSearch.innerHTML = localStorage.getItem(localStorage.length);
+                    savedSearch.className = "btn btn-secondary";
+                    savedSearch.setAttribute('id', localStorage.getItem(localStorage.length));
+                    savedSearch.addEventListener("click", setSearchCity(savedSearch));
+                    savedSearch.addEventListener("click", weatherSearch)
+                    var searchButton = document.querySelector(".btn-primary");
+                    searchButton.parentNode.appendChild(savedSearch);
+            }
 
-            function addButton(){
+            newButton();
+
+
+            // THIS IS THE SECTION WHERE IT ADDS A NEW BUTTON, NOT LOADS SAVED BUTTONS.
+            // SOMETHING'S BROKEN IN HERE
+            // Adds a saved search button with a text label and ID of the search city
+           /* function addButton() {
+                // Add something in here so that a new button doesn't get added if
+                //searchCity.value is already in local storage
                 var newButton = document.createElement('button');
                 newButton.type = 'button';
                 newButton.innerHTML = localStorage.getItem(nextIndex);
                 newButton.className = "btn btn-secondary";
-                newButton.addEventListener("click", weatherSearch())
+                newButton.addEventListener("click", weatherSearch)
+                newButton.setAttribute('id', searchCity.value)
                 var searchButton = document.querySelector(".btn-primary");
-                searchButton.parentNode.appendChild(savedSearch);
+                searchButton.parentNode.appendChild(newButton);
+            
                 
-               
-/*
+                 // THIS IS THE SECTION WHERE IT ADDS A NEW BUTTON, NOT LOADS SAVED BUTTONS.
+            // SOMETHING'S BROKEN IN HERE
+
                 for (i=0; i<localStorage.length; i++){
                     var savedSearch = document.createElement('button');
                     savedSearch.type = 'button';
@@ -214,9 +315,10 @@ function weatherSearch() {
                     var searchButton = document.querySelector(".btn-primary");
                     searchButton.parentNode.appendChild(savedSearch);
                 }
-*/
+
                 
                 }
+                addButton (); */
                 })
                 
                 .catch(error => console.error(error))
@@ -226,3 +328,4 @@ function weatherSearch() {
 // do i need to stringify and parse to store this properly?
         //store city to local storage key, city ID to local storage value
     }
+  
