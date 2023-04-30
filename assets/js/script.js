@@ -270,11 +270,33 @@ function weatherSearch() {
             humidity6 = document.querySelector('#humidity6');
             humidity6.textContent = 'Humidity: ' + data.list[39].main.humidity + '%';
             
-            // Saves the name of the city search in the next available local storage slot
-            var nextIndex = localStorage.length + 1;
-            localStorage.setItem(nextIndex, data.city.name);
-            
-            // Creates a new button with a saved user-created search when the user clicks the search button
+            // Adds new search to local storage if local storage is empty...
+            if (localStorage.length === 0) {
+                localStorage.setItem(1, data.city.name);
+                var foundMatch = false;
+                // ... and creates a new button to search for that stored city search again
+                newButton();
+            // If local storage isn't empty, checks to see if the user-entered search matches any items currently in local storage...
+            } else {
+                var foundMatch = false;
+                for (var j = 1; j <= localStorage.length; j++) {
+                    // And if the search matches a previously stored search, the new identical search isn't stored in local storage and a new button isn't created
+                    if (data.city.name === localStorage.getItem(j)) {
+                        foundMatch = true;
+                        break;
+                    }
+                }
+            }
+            console.log(foundMatch);
+            // But if the user search is new, the new data is stored to local storage and a new button is created
+            if (!foundMatch) {
+                // Saves the name of the city search in the next available local storage slot
+                var nextIndex = localStorage.length + 1;
+                localStorage.setItem(nextIndex, data.city.name);
+                newButton();
+            }
+
+            // Creates a new button with text that matches the user search and which, when clicked, searches for that search again
             function newButton(){
                 var savedSearch = document.createElement('button');
                     savedSearch.type = 'button';
@@ -288,7 +310,6 @@ function weatherSearch() {
                     var lineBreak = document.createElement('br');
                     searchButton.parentNode.insertBefore(lineBreak, savedSearch);
             }
-            newButton();
                 })
                 .catch(error => console.error(error))
             })
