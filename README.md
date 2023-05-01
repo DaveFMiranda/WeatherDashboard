@@ -6,7 +6,7 @@ Displays the current weather for a city the user inputs, a five-day forecast, an
 
 This site is a weather dashboard that accepts a search term for a location and returns a five-day forecast including temperature, wind-speed, humidity, and an icon representing weather conditions. When the user searches for a city, that city is saved to local storage and a button is created so the user can retrieve that search easily. When the page loads, previous searches saved to local storage are loaded with corresponding buttons. Local storage is cleared after a user adds more than 10 search terms.
 
-Here's a screenshot: ![image](/weatherdashboard/weatherdashboardscreenshot.png?raw=true "Weather Dashboard Screenshot")
+Here's a screenshot: ![WeatherDashboardScreenshot](/weatherdashboardscreenshot.png?raw=true "Weather Dashboard Screenshot")
 
 Here's a link to the site:
 
