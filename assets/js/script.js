@@ -39,7 +39,7 @@ function weatherSearch() {
   //Builds the initial API request URL and inserts the API key and the user-created search term
   var APIKey = "67c9eb2313ffa6deee9294ece7e56ce5";
   var latLonQueryURL =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     searchCity.value +
     "&limit=1&appid=" +
     APIKey;
