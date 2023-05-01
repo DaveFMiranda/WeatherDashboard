@@ -1,11 +1,11 @@
 h2 {
-display: inline;
+  display: inline;
 }
 
 .btn-secondary {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .btn-secondary {
-    display: block;
-}  
+  display: block;
+}
