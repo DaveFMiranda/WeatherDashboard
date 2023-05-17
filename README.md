@@ -8,7 +8,7 @@ This site is a weather dashboard that accepts a search term for a location and r
 
 Here's a screenshot: ![WeatherDashboardScreenshot](/WeatherDashboardScreenshot.png)
 
-Here's a link to the site:
+Here's a link to the site: https://davefmiranda.github.io/WeatherDashboard/
 
 ## Installation
 
